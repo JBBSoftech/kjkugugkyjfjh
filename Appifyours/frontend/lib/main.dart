@@ -3,7 +3,24 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
 class PriceUtils {
   static String formatPrice(double price, {String currency = '$'}) {
-    return '$0.00';
+    return '$currency${price.toStringAsFixed(2)}';
+  }
+  static double parsePrice(String priceString) {
+    if (priceString.isEmpty) return 0.0;
+    String numericString = priceString.replaceAll(RegExp(r'[^d.]'), '');
+    return double.tryParse(numericString) ?? 0.0;
+  }
+  static String detectCurrency(String priceString) {
+    if (priceString.contains('₹')) return '₹';
+    if (priceString.contains('$')) return '$';
+    if (priceString.contains('€')) return '€';
+    if (priceString.contains('£')) return '£';
+    if (priceString.contains('¥')) return '¥';
+    if (priceString.contains('₩')) return '₩';
+    if (priceString.contains('₽')) return '₽';
+    if (priceString.contains('₦')) return '₦';
+    if (priceString.contains('₨')) return '₨';
+    return '$'; // Default to dollar
   }
   static double calculateDiscountPrice(double originalPrice, double discountPercentage) {
     return originalPrice * (1 - discountPercentage / 100);
@@ -108,6 +125,36 @@ class WishlistManager extends ChangeNotifier {
     return _items.any((item) => item.id == id);
   }
 }
+final List<Map<String, dynamic>> productCards = [
+  {
+    'productName': 'kulambuu',
+    'shortDescription': '100% cotton, Free size',
+    'imageAsset': null,
+    'price': '300',
+    'discountPrice': '10',
+    'rating': '4.5',
+    'reviewCount': '128',
+    'brandName': 'Brand Name',
+    'stockStatus': 'In Stock',
+    'badgeText': 'New',
+    'badgeColor': '#FF0000',
+    'quantity': 1,
+    'weight': '',
+    'weightUnit': 'kg',
+  },
+  {
+    'productName': 'sambar',
+    'imageAsset': null,
+    'price': '100',
+    'discountPrice': '1',
+  },
+  {
+    'productName': 'rasam ',
+    'imageAsset': null,
+    'price': '200',
+    'discountPrice': '2',
+  }
+];
 void main() => runApp(const MyApp());
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -145,10 +192,13 @@ class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
   final CartManager _cartManager = CartManager();
   final WishlistManager _wishlistManager = WishlistManager();
+  String _searchQuery = '';
+  List<Map<String, dynamic>> _filteredProducts = [];
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
+    _filteredProducts = List.from(productCards);
   }
   @override
   void dispose() {
@@ -157,28 +207,43 @@ class _HomePageState extends State<HomePage> {
   }
   void _onPageChanged(int index) => setState(() => _currentPageIndex = index);
   void _onItemTapped(int index) {
-    _pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
+    setState(() => _currentPageIndex = index);
+  }
+  void _filterProducts(String query) {
+    setState(() {
+      _searchQuery = query;
+      if (query.isEmpty) {
+        _filteredProducts = List.from(productCards);
+      } else {
+        _filteredProducts = productCards.where((product) {
+          final productName = (product['productName'] ?? '').toString().toLowerCase();
+          final price = (product['price'] ?? '').toString().toLowerCase();
+          final discountPrice = (product['discountPrice'] ?? '').toString().toLowerCase();
+          final searchLower = query.toLowerCase();
+          return productName.contains(searchLower) || 
+                 price.contains(searchLower) || 
+                 discountPrice.contains(searchLower);
+        }).toList();
+      }
+    });
   }
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: PageView.builder(
-      controller: _pageController,
-      onPageChanged: _onPageChanged,
-      itemCount: widget.pages?.length ?? 0,
-      itemBuilder: (context, index) => AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        transitionBuilder: (Widget child, Animation<double> animation) => FadeTransition(
-          opacity: animation,
-          child: child,
-        ),
-        child: SingleChildScrollView(
-          key: ValueKey<int>(index),
-          child: Column(
-            children: [
+    body: IndexedStack(
+      index: _currentPageIndex,
+      children: [
+        _buildHomePage(),
+        _buildCartPage(),
+        _buildWishlistPage(),
+        _buildProfilePage(),
+      ],
+    ),
+    bottomNavigationBar: _buildBottomNavigationBar(),
+  );
+  Widget _buildHomePage() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
                   Container(
                     color: Color(0xff2196f3),
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -187,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                         const Icon(Icons.store, size: 32, color: Colors.white),
                         const SizedBox(width: 8),
                         Text(
-                          'jeevs ',
+                          'jeeva anandhan',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -262,9 +327,14 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         TextField(
+                          onChanged: (searchQuery) {
+                            setState(() {
+                            });
+                          },
                           decoration: InputDecoration(
-                            hintText: 'Search products',
+                            hintText: 'search name and price',
                             prefixIcon: const Icon(Icons.search),
+                            suffixIcon: const Icon(Icons.filter_list),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -272,142 +342,18 @@ class _HomePageState extends State<HomePage> {
                             fillColor: Colors.grey.shade100,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 160,
-                    child: Stack(
-                      children: [
-                        Container(color: Colors.grey[300]),
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'elcome jeeve',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      blurRadius: 4.0,
-                                      color: Colors.black,
-                                      offset: Offset(1.0, 1.0),
-                                    ),
-                                  ],
-                                ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Icon(Icons.info_outline, size: 16, color: Colors.grey),
+                            const SizedBox(width: 4),
+                            Expanded(
+                              child: Text(
+                                'Search by product name or price (e.g., "Product Name" or "$299")',
+                                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                               ),
-                              const SizedBox(height: 12),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                ),
-                                child: Text('shop now', style: const TextStyle(fontSize: 12)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Categories',
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 12),
-                        Container(
-                          height: 120,
-                          child: Stack(
-                            children: [
-                              ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 0,
-                                itemBuilder: (context, index) => Container(
-                                  width: 80,
-                                  margin: const EdgeInsets.only(right: 12, left: 6, top: 6, bottom: 6),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: 60,
-                                        height: 60,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black.withOpacity(0.1),
-                                              blurRadius: 4,
-                                              offset: Offset(0, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        child: const Icon(Icons.image, size: 30, color: Colors.grey),
-                                      ),
-                                      const SizedBox(height: 6),
-                                      Text(
-                                        'Category',
-                                        style: const TextStyle(fontSize: 10),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      if (false true)
-                                        Column(
-                                          children: [],
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                bottom: 0,
-                                child: Container(
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.white.withOpacity(0.8),
-                                        Colors.transparent,
-                                      ],
-                                    ),
-                                  ),
-                                  child: const Icon(Icons.chevron_left, color: Colors.blue, size: 16),
-                                ),
-                              ),
-                              Positioned(
-                                right: 0,
-                                top: 0,
-                                bottom: 0,
-                                child: Container(
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.centerRight,
-                                      end: Alignment.centerLeft,
-                                      colors: [
-                                        Colors.white.withOpacity(0.8),
-                                        Colors.transparent,
-                                      ],
-                                    ),
-                                  ),
-                                  child: const Icon(Icons.chevron_right, color: Colors.blue, size: 16),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -426,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
+                            crossAxisCount: 2,
                             mainAxisSpacing: 12,
                             crossAxisSpacing: 12,
                             childAspectRatio: 0.75,
@@ -603,91 +549,296 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'User Profile',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: 'Full Name',
-                            hintText: 'Enter your name',
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            hintText: 'Enter your email',
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            hintText: 'Enter your password',
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: 'Confirm Password',
-                            hintText: 'Confirm your password',
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: 'Phone Number',
-                            hintText: 'Enter your phone number',
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+        ],
+      ),
+    );
+  }
+  Widget _buildCartPage() {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Shopping Cart'),
+        automaticallyImplyLeading: false,
+      ),
+      body: _cartManager.items.isEmpty
+          ? const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.shopping_cart_outlined, size: 64, color: Colors.grey),
+                  SizedBox(height: 16),
+                  Text('Your cart is empty', style: TextStyle(fontSize: 18, color: Colors.grey)),
+                ],
+              ),
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _cartManager.items.length,
+                    itemBuilder: (context, index) {
+                      final item = _cartManager.items[index];
+                      return Card(
+                        margin: const EdgeInsets.all(8),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 60,
+                                height: 60,
+                                color: Colors.grey[300],
+                                child: const Icon(Icons.image),
                               ),
-                              backgroundColor: Colors.blue,
-                            ),
-                            child: Text(
-                              'Save Profile',
-                              style: const TextStyle(color: Colors.white),
-                            ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(item.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                    Text(PriceUtils.formatPrice(item.effectivePrice)),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      if (item.quantity > 1) {
+                                        _cartManager.updateQuantity(item.id, item.quantity - 1);
+                                      } else {
+                                        _cartManager.removeItem(item.id);
+                                      }
+                                    },
+                                    icon: const Icon(Icons.remove),
+                                  ),
+                                  Text('${item.quantity}', style: const TextStyle(fontSize: 16)),
+                                  IconButton(
+                                    onPressed: () {
+                                      _cartManager.updateQuantity(item.id, item.quantity + 1);
+                                    },
+                                    icon: const Icon(Icons.add),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    border: const Border(top: BorderSide(color: Colors.grey)),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Subtotal:', style: TextStyle(fontSize: 16)),
+                          Text(PriceUtils.formatPrice(_cartManager.subtotal), style: const TextStyle(fontSize: 16)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Tax (8%):', style: TextStyle(fontSize: 16)),
+                          Text(PriceUtils.formatPrice(PriceUtils.calculateTax(_cartManager.subtotal, 8.0)), style: const TextStyle(fontSize: 16)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Shipping:', style: TextStyle(fontSize: 16)),
+                          Text(PriceUtils.formatPrice(5.99), style: const TextStyle(fontSize: 16)),
+                        ],
+                      ),
+                      const Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Total:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          Text(PriceUtils.formatPrice(_cartManager.finalTotal), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Checkout'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+  Widget _buildWishlistPage() {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Wishlist'),
+        automaticallyImplyLeading: false,
+      ),
+      body: _wishlistManager.items.isEmpty
+          ? const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.favorite_border, size: 64, color: Colors.grey),
+                  SizedBox(height: 16),
+                  Text('Your wishlist is empty', style: TextStyle(fontSize: 18, color: Colors.grey)),
+                ],
+              ),
+            )
+          : ListView.builder(
+              itemCount: _wishlistManager.items.length,
+              itemBuilder: (context, index) {
+                final item = _wishlistManager.items[index];
+                return Card(
+                  margin: const EdgeInsets.all(8),
+                  child: ListTile(
+                    leading: Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.image),
+                    ),
+                    title: Text(item.name),
+                    subtitle: Text(PriceUtils.formatPrice(item.effectivePrice)),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            final cartItem = CartItem(
+                              id: item.id,
+                              name: item.name,
+                              price: item.price,
+                              discountPrice: item.discountPrice,
+                              image: item.image,
+                            );
+                            _cartManager.addItem(cartItem);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Added to cart')),
+                            );
+                          },
+                          icon: const Icon(Icons.shopping_cart),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            _wishlistManager.removeItem(item.id);
+                          },
+                          icon: const Icon(Icons.delete, color: Colors.red),
                         ),
                       ],
                     ),
                   ),
-            ],
-          ),
+                );
+              },
+            ),
+    );
+  }
+  Widget _buildProfilePage() {
+    return const Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.person, size: 64, color: Colors.grey),
+            SizedBox(height: 16),
+            Text('Profile Page', style: TextStyle(fontSize: 18)),
+          ],
         ),
       ),
-    ),
-    bottomNavigationBar: _currentPageIndex == 0 ? _buildBottomNavigationBar() : null,
-  );
+    );
+  }
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _currentPageIndex,
+      onTap: _onItemTapped,
+      items: [
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Stack(
+            children: [
+              const Icon(Icons.shopping_cart),
+              if (_cartManager.items.isNotEmpty)
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '${_cartManager.items.length}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          label: 'Cart',
+        ),
+        BottomNavigationBarItem(
+          icon: Stack(
+            children: [
+              const Icon(Icons.favorite),
+              if (_wishlistManager.items.isNotEmpty)
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '${_wishlistManager.items.length}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          label: 'Wishlist',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
+    );
+  }
 }
