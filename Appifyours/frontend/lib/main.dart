@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                         const Icon(Icons.store, size: 32, color: Colors.white),
                         const SizedBox(width: 8),
                         Text(
-                          'My Store',
+                          'jeevs ',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -276,6 +276,143 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Container(
+                    height: 160,
+                    child: Stack(
+                      children: [
+                        Container(color: Colors.grey[300]),
+                        Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'elcome jeeve',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  shadows: [
+                                    Shadow(
+                                      blurRadius: 4.0,
+                                      color: Colors.black,
+                                      offset: Offset(1.0, 1.0),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                child: Text('shop now', style: const TextStyle(fontSize: 12)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Categories',
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 12),
+                        Container(
+                          height: 120,
+                          child: Stack(
+                            children: [
+                              ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 0,
+                                itemBuilder: (context, index) => Container(
+                                  width: 80,
+                                  margin: const EdgeInsets.only(right: 12, left: 6, top: 6, bottom: 6),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.1),
+                                              blurRadius: 4,
+                                              offset: Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child: const Icon(Icons.image, size: 30, color: Colors.grey),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        'Category',
+                                        style: const TextStyle(fontSize: 10),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      if (false true)
+                                        Column(
+                                          children: [],
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 0,
+                                top: 0,
+                                bottom: 0,
+                                child: Container(
+                                  width: 24,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Colors.white.withOpacity(0.8),
+                                        Colors.transparent,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Icon(Icons.chevron_left, color: Colors.blue, size: 16),
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                child: Container(
+                                  width: 24,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerRight,
+                                      end: Alignment.centerLeft,
+                                      colors: [
+                                        Colors.white.withOpacity(0.8),
+                                        Colors.transparent,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Icon(Icons.chevron_right, color: Colors.blue, size: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
                     padding: const EdgeInsets.all(12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,7 +426,7 @@ class _HomePageState extends State<HomePage> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                            crossAxisCount: 4,
                             mainAxisSpacing: 12,
                             crossAxisSpacing: 12,
                             childAspectRatio: 0.75,
@@ -464,6 +601,86 @@ class _HomePageState extends State<HomePage> {
                           },
                         );
                       },
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'User Profile',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Full Name',
+                            hintText: 'Enter your name',
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            hintText: 'Enter your email',
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        TextField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            hintText: 'Enter your password',
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        TextField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Confirm Password',
+                            hintText: 'Confirm your password',
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Phone Number',
+                            hintText: 'Enter your phone number',
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              backgroundColor: Colors.blue,
+                            ),
+                            child: Text(
+                              'Save Profile',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
             ],
