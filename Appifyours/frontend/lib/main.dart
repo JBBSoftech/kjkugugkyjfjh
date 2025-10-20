@@ -1,6 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+class AdminConfig {
+  static const String adminId = '68e11e2d22ab170f82f6f6cc';
+  static const String shopName = 'kjkugugkyjfjh';
+  static const String backendUrl = 'https://appifyours-backend.onrender.com';
+  static Future<void> storeUserData(Map<String, dynamic> userData) async {
+    try {
+      await http.post(
+        Uri.parse('$backendUrl/api/store-user-data'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'adminId': adminId,
+          'shopName': shopName,
+          'userData': userData,
+          'timestamp': DateTime.now().toIso8601String(),
+        }),
+      );
+    } catch (e) {
+      print('Error storing user data: $e');
+    }
+  }
+  static Future<Map<String, dynamic>?> getDynamicConfig() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$backendUrl/api/get-admin-config/$adminId'),
+      );
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      }
+    } catch (e) {
+      print('Error getting dynamic config: $e');
+    }
+    return null;
+  }
+}
 class PriceUtils {
   static String formatPrice(double price, {String currency = '$'}) {
     return '$currency${price.toStringAsFixed(2)}';
@@ -252,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                         const Icon(Icons.store, size: 32, color: Colors.white),
                         const SizedBox(width: 8),
                         Text(
-                          'jeeva anandhannnnnnnnn',
+                          'jeeva anandhannnnnnnnnn',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
