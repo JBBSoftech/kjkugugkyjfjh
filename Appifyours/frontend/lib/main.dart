@@ -22,6 +22,113 @@ class AdminConfig {
       print('Error storing user data: $e');
     }
   }
+  static Future<void> storeUserOrder({
+    required String userId,
+    required String orderId,
+    required List<Map<String, dynamic>> products,
+    required double totalOrderValue,
+    required int totalQuantity,
+    String? paymentMethod,
+    String? paymentStatus,
+    Map<String, dynamic>? shippingAddress,
+    String? notes,
+  }) async {
+    try {
+      await http.post(
+        Uri.parse('$backendUrl/api/store-user-order'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'adminId': adminId,
+          'userId': userId,
+          'orderData': {
+            'orderId': orderId,
+            'products': products,
+            'totalOrderValue': totalOrderValue,
+            'totalQuantity': totalQuantity,
+            'paymentMethod': paymentMethod,
+            'paymentStatus': paymentStatus,
+            'shippingAddress': shippingAddress,
+            'notes': notes,
+          },
+        }),
+      );
+    } catch (e) {
+      print('Error storing user order: $e');
+    }
+  }
+  static Future<void> updateUserCart({
+    required String userId,
+    required List<Map<String, dynamic>> cartItems,
+  }) async {
+    try {
+      await http.post(
+        Uri.parse('$backendUrl/api/update-user-cart'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'adminId': adminId,
+          'userId': userId,
+          'cartItems': cartItems,
+        }),
+      );
+    } catch (e) {
+      print('Error updating user cart: $e');
+    }
+  }
+  static Future<void> trackUserInteraction({
+    required String userId,
+    required String interactionType,
+    String? target,
+    Map<String, dynamic>? details,
+  }) async {
+    try {
+      await storeUserData({
+        'userId': userId,
+        'interactions': [{
+          'type': interactionType,
+          'target': target,
+          'details': details,
+          'timestamp': DateTime.now().toIso8601String(),
+        }],
+      });
+    } catch (e) {
+      print('Error tracking user interaction: $e');
+    }
+  }
+  static Future<void> registerUser({
+    required String userId,
+    required String name,
+    required String email,
+    String? phone,
+    Map<String, dynamic>? address,
+  }) async {
+    try {
+      await http.post(
+        Uri.parse('$backendUrl/api/store-user-data'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'adminId': adminId,
+          'shopName': shopName,
+          'userData': {
+            'userId': userId,
+            'userInfo': {
+              'name': name,
+              'email': email,
+              'phone': phone ?? '',
+              'address': address ?? {},
+              'preferences': {}
+            },
+            'orders': [],
+            'cartItems': [],
+            'wishlistItems': [],
+            'interactions': [],
+          },
+          'timestamp': DateTime.now().toIso8601String(),
+        }),
+      );
+    } catch (e) {
+      print('Error registering user: $e');
+    }
+  }
   static Future<Map<String, dynamic>?> getDynamicConfig() async {
     try {
       final response = await http.get(
@@ -162,11 +269,11 @@ class WishlistManager extends ChangeNotifier {
 }
 final List<Map<String, dynamic>> productCards = [
   {
-    'productName': 'kulambuu',
+    'productName': 'Product Name',
     'shortDescription': '100% cotton, Free size',
     'imageAsset': null,
-    'price': '300',
-    'discountPrice': '10',
+    'price': '$299',
+    'discountPrice': '$199',
     'rating': '4.5',
     'reviewCount': '128',
     'brandName': 'Brand Name',
@@ -176,18 +283,6 @@ final List<Map<String, dynamic>> productCards = [
     'quantity': 1,
     'weight': '',
     'weightUnit': 'kg',
-  },
-  {
-    'productName': 'sambar',
-    'imageAsset': null,
-    'price': '100',
-    'discountPrice': '1',
-  },
-  {
-    'productName': 'rasam ',
-    'imageAsset': null,
-    'price': '200',
-    'discountPrice': '2',
   }
 ];
 void main() => runApp(const MyApp());
@@ -287,7 +382,7 @@ class _HomePageState extends State<HomePage> {
                         const Icon(Icons.store, size: 32, color: Colors.white),
                         const SizedBox(width: 8),
                         Text(
-                          'jeeva anandhannnnnnnnnn',
+                          'jeeva anandhann',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -367,7 +462,7 @@ class _HomePageState extends State<HomePage> {
                             });
                           },
                           decoration: InputDecoration(
-                            hintText: 'search name and price',
+                            hintText: 'Search products by name or price',
                             prefixIcon: const Icon(Icons.search),
                             suffixIcon: const Icon(Icons.filter_list),
                             border: OutlineInputBorder(
@@ -412,7 +507,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisSpacing: 12,
                             childAspectRatio: 0.75,
                           ),
-                          itemCount: 3,
+                          itemCount: 1,
                           itemBuilder: (context, index) {
                             final product = productCards[index];
                             final productId = 'product_$index';
