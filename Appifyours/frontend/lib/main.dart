@@ -269,11 +269,11 @@ class WishlistManager extends ChangeNotifier {
 }
 final List<Map<String, dynamic>> productCards = [
   {
-    'productName': 'Product Name',
+    'productName': 'Block Watter',
     'shortDescription': '100% cotton, Free size',
-    'imageAsset': null,
-    'price': '$299',
-    'discountPrice': '$199',
+    'imageAsset': 'data:image/png;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAdAB0DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD13xn4wtPBOjJql7Z3lzAZRE32VAxTIOGbJAAyAM+pFeU6p+0ai3YGkaE0ltsGTdybH3c54XIx0713fxo/5JLrn/bD/wBHx14RY6HpkvweTV3s0bUP7fW28/Jz5WwHb6YyaAPTdJ/aG0u5ggivdD1E6hI23yrNVkViThQuWBJPHbrXsyncoOCMjOD1r5e17SLDQv2hdN0/TLZLa0i1KwKRJnAyYyevuTX1FQBwXxnBPwl1zAz/AKj/ANHx1862vi+C3+Ha+GTayGYaqt/5wYbdoULtx1zxX2DdWlvfWstrdwRz28q7ZIpVDKw9CD1rm/8AhWvgr/oWtO/79UAfPEniWLxh8cdI1u3tpII7jU7ICJyCw2tGp6f7ua+sa57T/AvhXSr6O9sdBsILmI5jlSIblPqPQ10NAH//2Q==',
+    'price': '299',
+    'discountPrice': '199',
     'rating': '4.5',
     'reviewCount': '128',
     'brandName': 'Brand Name',
@@ -285,10 +285,34 @@ final List<Map<String, dynamic>> productCards = [
     'weightUnit': 'kg',
   },
   {
-    'productName': 'rubber',
-    'imageAsset': null,
-    'price': '34',
-    'discountPrice': '',
+    'productName': 'Green Watter',
+    'imageAsset': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYAAABWk2cPAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHxSURBVHgB7ZZLTsJAGMf/M4Ca+GLlGk9gPYHhBhAfiTtYqCz1BnAC3VnjAl2ZGBu5AdxAbkC9ASuDCh2/GWhpy6MDlLjhnwCd4cv8Zr7XFFhpiWKIW9fVNDqbOVrahnnawNKhpZcMsFanp0x/gpdh5ithM45YlcwMgVJOWZ18qdC+O4uBud+93bDZqHvlzr52CuBOGpPUS9bwmG+qZ+lSlnpH1yni8WwwZxXou0ofiuvxfjS0ZLUQcFFY4hnmScHbYGfnQ9kztNHtZT3wpXUNzmsUU3s69PItB87eJ+HARBP3J4ce8Hu7DsEM32ptiJ9DmOc2pigY02kulcD1RNYbh4FSAmnl6ggloSdbAe/ybTUqWVUCGCNWgk7aSxSjFtPN3koACBTGWjk86yXY4lDHVj8y5pOAslRc4MWrgYWhbjvjwpgINI+fPGAieYuFoEL43MWOxlhUAkCeqCNCOif9HG7Al60yaZhzQ8CyGssmIYEM6agFdbO3L4Ybakf0kGrgwVf0bqPXAOpBOblULioL3nWjXyM3SxxQWfBy0dJLVoFV69syqDwofjig/3O6J9SH9pUhcAtXVhudAcDNhjlu5NmuthlPFA80JoWg9F4Ti4QNbajqPKKBhXhUv+CVaSbj00Ddq8588dtI1bzLYaX/0B/mbZ3/hi49bQAAAABJRU5ErkJggg==',
+    'price': '300',
+    'discountPrice': '199',
+  },
+  {
+    'productName': 'Blue Watter',
+    'imageAsset': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYAAABWk2cPAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHxSURBVHgB7ZZLTsJAGMf/M4Ca+GLlGk9gPYHhBhAfiTtYqCz1BnAC3VnjAl2ZGBu5AdxAbkC9ASuDCh2/GWhpy6MDlLjhnwCd4cv8Zr7XFFhpiWKIW9fVNDqbOVrahnnawNKhpZcMsFanp0x/gpdh5ithM45YlcwMgVJOWZ18qdC+O4uBud+93bDZqHvlzr52CuBOGpPUS9bwmG+qZ+lSlnpH1yni8WwwZxXou0ofiuvxfjS0ZLUQcFFY4hnmScHbYGfnQ9kztNHtZT3wpXUNzmsUU3s69PItB87eJ+HARBP3J4ce8Hu7DsEM32ptiJ9DmOc2pigY02kulcD1RNYbh4FSAmnl6ggloSdbAe/ybTUqWVUCGCNWgk7aSxSjFtPN3koACBTGWjk86yXY4lDHVj8y5pOAslRc4MWrgYWhbjvjwpgINI+fPGAieYuFoEL43MWOxlhUAkCeqCNCOif9HG7Al60yaZhzQ8CyGssmIYEM6agFdbO3L4Ybakf0kGrgwVf0bqPXAOpBOblULioL3nWjXyM3SxxQWfBy0dJLVoFV69syqDwofjig/3O6J9SH9pUhcAtXVhudAcDNhjlu5NmuthlPFA80JoWg9F4Ti4QNbajqPKKBhXhUv+CVaSbj00Ddq8588dtI1bzLYaX/0B/mbZ3/hi49bQAAAABJRU5ErkJggg==',
+    'price': '399',
+    'discountPrice': '199',
+  },
+  {
+    'productName': 'Pink watter',
+    'imageAsset': 'data:image/png;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAdAB0DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD13xn4wtPBOjJql7Z3lzAZRE32VAxTIOGbJAAyAM+pFeU6p+0ai3YGkaE0ltsGTdybH3c54XIx0713fxo/5JLrn/bD/wBHx14RY6HpkvweTV3s0bUP7fW28/Jz5WwHb6YyaAPTdJ/aG0u5ggivdD1E6hI23yrNVkViThQuWBJPHbrXsyncoOCMjOD1r5e17SLDQv2hdN0/TLZLa0i1KwKRJnAyYyevuTX1FQBwXxnBPwl1zAz/AKj/ANHx1862vi+C3+Ha+GTayGYaqt/5wYbdoULtx1zxX2DdWlvfWstrdwRz28q7ZIpVDKw9CD1rm/8AhWvgr/oWtO/79UAfPEniWLxh8cdI1u3tpII7jU7ICJyCw2tGp6f7ua+sa57T/AvhXSr6O9sdBsILmI5jlSIblPqPQ10NAH//2Q==',
+    'price': '399',
+    'discountPrice': '1999',
+  },
+  {
+    'productName': 'lavander Watter ',
+    'imageAsset': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYAAABWk2cPAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHxSURBVHgB7ZZLTsJAGMf/M4Ca+GLlGk9gPYHhBhAfiTtYqCz1BnAC3VnjAl2ZGBu5AdxAbkC9ASuDCh2/GWhpy6MDlLjhnwCd4cv8Zr7XFFhpiWKIW9fVNDqbOVrahnnawNKhpZcMsFanp0x/gpdh5ithM45YlcwMgVJOWZ18qdC+O4uBud+93bDZqHvlzr52CuBOGpPUS9bwmG+qZ+lSlnpH1yni8WwwZxXou0ofiuvxfjS0ZLUQcFFY4hnmScHbYGfnQ9kztNHtZT3wpXUNzmsUU3s69PItB87eJ+HARBP3J4ce8Hu7DsEM32ptiJ9DmOc2pigY02kulcD1RNYbh4FSAmnl6ggloSdbAe/ybTUqWVUCGCNWgk7aSxSjFtPN3koACBTGWjk86yXY4lDHVj8y5pOAslRc4MWrgYWhbjvjwpgINI+fPGAieYuFoEL43MWOxlhUAkCeqCNCOif9HG7Al60yaZhzQ8CyGssmIYEM6agFdbO3L4Ybakf0kGrgwVf0bqPXAOpBOblULioL3nWjXyM3SxxQWfBy0dJLVoFV69syqDwofjig/3O6J9SH9pUhcAtXVhudAcDNhjlu5NmuthlPFA80JoWg9F4Ti4QNbajqPKKBhXhUv+CVaSbj00Ddq8588dtI1bzLYaX/0B/mbZ3/hi49bQAAAABJRU5ErkJggg==',
+    'price': '800',
+    'discountPrice': '678',
+  },
+  {
+    'productName': 'yellow watter',
+    'imageAsset': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYAAABWk2cPAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHxSURBVHgB7ZZLTsJAGMf/M4Ca+GLlGk9gPYHhBhAfiTtYqCz1BnAC3VnjAl2ZGBu5AdxAbkC9ASuDCh2/GWhpy6MDlLjhnwCd4cv8Zr7XFFhpiWKIW9fVNDqbOVrahnnawNKhpZcMsFanp0x/gpdh5ithM45YlcwMgVJOWZ18qdC+O4uBud+93bDZqHvlzr52CuBOGpPUS9bwmG+qZ+lSlnpH1yni8WwwZxXou0ofiuvxfjS0ZLUQcFFY4hnmScHbYGfnQ9kztNHtZT3wpXUNzmsUU3s69PItB87eJ+HARBP3J4ce8Hu7DsEM32ptiJ9DmOc2pigY02kulcD1RNYbh4FSAmnl6ggloSdbAe/ybTUqWVUCGCNWgk7aSxSjFtPN3koACBTGWjk86yXY4lDHVj8y5pOAslRc4MWrgYWhbjvjwpgINI+fPGAieYuFoEL43MWOxlhUAkCeqCNCOif9HG7Al60yaZhzQ8CyGssmIYEM6agFdbO3L4Ybakf0kGrgwVf0bqPXAOpBOblULioL3nWjXyM3SxxQWfBy0dJLVoFV69syqDwofjig/3O6J9SH9pUhcAtXVhudAcDNhjlu5NmuthlPFA80JoWg9F4Ti4QNbajqPKKBhXhUv+CVaSbj00Ddq8588dtI1bzLYaX/0B/mbZ3/hi49bQAAAABJRU5ErkJggg==',
+    'price': '9000',
+    'discountPrice': '200',
   }
 ];
 void main() => runApp(const MyApp());
@@ -388,7 +412,7 @@ class _HomePageState extends State<HomePage> {
                         const Icon(Icons.store, size: 32, color: Colors.white),
                         const SizedBox(width: 8),
                         Text(
-                          'jeeva anandhann',
+                          'H2O',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -468,7 +492,7 @@ class _HomePageState extends State<HomePage> {
                             });
                           },
                           decoration: InputDecoration(
-                            hintText: 'Search products by name or price',
+                            hintText: 'Search ',
                             prefixIcon: const Icon(Icons.search),
                             suffixIcon: const Icon(Icons.filter_list),
                             border: OutlineInputBorder(
@@ -500,6 +524,114 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
+                          'Easy Buy!',
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 12),
+                        Container(
+                          height: 120,
+                          child: Stack(
+                            children: [
+                              ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 1,
+                                itemBuilder: (context, index) => Container(
+                                  width: 80,
+                                  margin: const EdgeInsets.only(right: 12, left: 6, top: 6, bottom: 6),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Color(0x4cc814),
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.1),
+                                              blurRadius: 4,
+                                              offset: Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child:                                         smallCards[index]['imageAsset'] != null
+                                            ? Image.network(
+                                                smallCards[index]['imageAsset'],
+                                                width: 60,
+                                                height: 60,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : const Icon(Icons.image, size: 30, color: Colors.grey)
+                                        ,
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        smallCards[index]['categoryName'] ?? 'Category',
+                                        style: const TextStyle(fontSize: 10),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      if (true true)
+                                        Column(
+                                          children: [                                            Text(
+                                              'Green: Bottle',
+                                              style: const TextStyle(fontSize: 8),
+                                            ),
+                                          ],
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 0,
+                                top: 0,
+                                bottom: 0,
+                                child: Container(
+                                  width: 24,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Colors.white.withOpacity(0.8),
+                                        Colors.transparent,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Icon(Icons.chevron_left, color: Colors.blue, size: 16),
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                child: Container(
+                                  width: 24,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerRight,
+                                      end: Alignment.centerLeft,
+                                      colors: [
+                                        Colors.white.withOpacity(0.8),
+                                        Colors.transparent,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Icon(Icons.chevron_right, color: Colors.blue, size: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
                           'All Categories',
                           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -513,7 +645,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisSpacing: 12,
                             childAspectRatio: 0.75,
                           ),
-                          itemCount: 2,
+                          itemCount: 6,
                           itemBuilder: (context, index) {
                             final product = productCards[index];
                             final productId = 'product_$index';
