@@ -283,6 +283,21 @@ final List<Map<String, dynamic>> productCards = [
     'quantity': 1,
     'weight': '',
     'weightUnit': 'kg',
+  },
+  {
+    'productName': 'naf',
+    'imageAsset': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYAAABWk2cPAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHxSURBVHgB7ZZLTsJAGMf/M4Ca+GLlGk9gPYHhBhAfiTtYqCz1BnAC3VnjAl2ZGBu5AdxAbkC9ASuDCh2/GWhpy6MDlLjhnwCd4cv8Zr7XFFhpiWKIW9fVNDqbOVrahnnawNKhpZcMsFanp0x/gpdh5ithM45YlcwMgVJOWZ18qdC+O4uBud+93bDZqHvlzr52CuBOGpPUS9bwmG+qZ+lSlnpH1yni8WwwZxXou0ofiuvxfjS0ZLUQcFFY4hnmScHbYGfnQ9kztNHtZT3wpXUNzmsUU3s69PItB87eJ+HARBP3J4ce8Hu7DsEM32ptiJ9DmOc2pigY02kulcD1RNYbh4FSAmnl6ggloSdbAe/ybTUqWVUCGCNWgk7aSxSjFtPN3koACBTGWjk86yXY4lDHVj8y5pOAslRc4MWrgYWhbjvjwpgINI+fPGAieYuFoEL43MWOxlhUAkCeqCNCOif9HG7Al60yaZhzQ8CyGssmIYEM6agFdbO3L4Ybakf0kGrgwVf0bqPXAOpBOblULioL3nWjXyM3SxxQWfBy0dJLVoFV69syqDwofjig/3O6J9SH9pUhcAtXVhudAcDNhjlu5NmuthlPFA80JoWg9F4Ti4QNbajqPKKBhXhUv+CVaSbj00Ddq8588dtI1bzLYaX/0B/mbZ3/hi49bQAAAABJRU5ErkJggg==',
+    'price': '54',
+    'discountPrice': '',
+    'brandName': 'xuled',
+    'stockStatus': 'In Stock',
+    'rating': '4.0',
+    'reviewCount': '0',
+    'badgeText': '',
+    'badgeColor': '#FF0000',
+    'quantity': 1,
+    'weight': '',
+    'weightUnit': 'kg',
   }
 ];
 void main() => runApp(const MyApp());
@@ -390,7 +405,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisSpacing: 12,
                             childAspectRatio: 0.75,
                           ),
-                          itemCount: 1,
+                          itemCount: 2,
                           itemBuilder: (context, index) {
                             final product = productCards[index];
                             final productId = 'product_$index';
@@ -589,7 +604,7 @@ class _HomePageState extends State<HomePage> {
                         const Icon(Icons.store, size: 32, color: Colors.white),
                         const SizedBox(width: 8),
                         Text(
-                          'jeevaa',
+                          'jeevaaa',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -654,6 +669,42 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      children: [
+                        TextField(
+                          onChanged: (searchQuery) {
+                            setState(() {
+                            });
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Search products by name or price',
+                            prefixIcon: const Icon(Icons.search),
+                            suffixIcon: const Icon(Icons.filter_list),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey.shade100,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Icon(Icons.info_outline, size: 16, color: Colors.grey),
+                            const SizedBox(width: 4),
+                            Expanded(
+                              child: Text(
+                                'Search by product name or price (e.g., "Product Name" or "$299")',
+                                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                              ),
+                            ),
                           ],
                         ),
                       ],
